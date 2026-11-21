@@ -146,10 +146,39 @@ pytest tests/ -v
 
 ---
 
-## 5. Docker Deployment
+## 5. Deployment Options
 
-Launch PostgreSQL with PostGIS, the FastAPI backend, and the React frontend with a single command:
+### Option 1: Automated Script (`deploy.sh`)
+Deploy or manage services with a single command:
 ```bash
-docker-compose up --build
+# Automated multi-container Docker Compose deployment
+./deploy.sh --docker
+
+# Native local background execution (FastAPI on 8000 + Vite on 5173)
+./deploy.sh --local
+
+# Check live service status and ports
+./deploy.sh --status
+
+# Stop running services
+./deploy.sh --stop
 ```
-# IDEA-FORGE
+
+### Option 2: Docker Compose
+Launch PostgreSQL with PostGIS, the FastAPI backend, and the React frontend with Nginx:
+```bash
+docker compose up -d --build
+```
+- Frontend: [http://localhost](http://localhost) (port 80)
+- Backend API Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+### Option 3: Kubernetes (`k8s/`)
+Deploy to any Kubernetes cluster via Kustomize:
+```bash
+kubectl apply -k k8s/
+```
+
+### Option 4: Cloud PaaS
+- **Render:** Connect the repo and deploy via the included [render.yaml](file:///Users/sivanarasimhagottipati/Downloads/%20IDEA%20FORGE/render.yaml) Blueprint.
+- **Vercel:** Frontend deploys automatically via [vercel.json](file:///Users/sivanarasimhagottipati/Downloads/%20IDEA%20FORGE/vercel.json).
+- See [documentation/deployment-guide.md](file:///Users/sivanarasimhagottipati/Downloads/%20IDEA%20FORGE/documentation/deployment-guide.md) for full documentation.

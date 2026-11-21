@@ -1,0 +1,50 @@
+{
+  "drought_model": {
+    "model_type": "GradientBoostingClassifier",
+    "f1_score": 0.9514,
+    "roc_auc": 0.9984,
+    "brier_score": 0.016,
+    "feature_importances": {
+      "rain_anomaly": 0.794,
+      "forecast_precip": 0.0013,
+      "heat_days": 0.0007,
+      "soil_moisture": 0.1302,
+      "et0": 0.0339,
+      "ndvi": 0.005,
+      "irrigation": 0.0337,
+      "clay_content": 0.0013
+    }
+  },
+  "excess_rain_model": {
+    "model_type": "GradientBoostingClassifier",
+    "f1_score": 0.9274,
+    "roc_auc": 0.9976,
+    "brier_score": 0.0125,
+    "feature_importances": {
+      "rain_anomaly": 0.001,
+      "forecast_precip": 0.6095,
+      "heat_days": 0.0009,
+      "soil_moisture": 0.2096,
+      "et0": 0.0023,
+      "ndvi": 0.0018,
+      "irrigation": 0.0002,
+      "clay_content": 0.1747
+    }
+  },
+  "heat_stress_model": {
+    "model_type": "RandomForestClassifier",
+    "f1_score": 0.8932,
+    "roc_auc": 0.9892,
+    "brier_score": 0.0663,
+    "feature_importances": {
+      "rain_anomaly": 0.0185,
+      "forecast_precip": 0.0148,
+      "heat_days": 0.598,
+      "soil_moisture": 0.2547,
+      "et0": 0.0742,
+      "ndvi": 0.0178,
+      "irrigation": 0.0043,
+      "clay_content": 0.0177
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "model_type": "RandomForestRegressorEnsemble",
+  "r2_score": 0.9502,
+  "rmse_tonnes_per_ha": 0.358,
+  "mae_tonnes_per_ha": 0.2557,
+  "feature_importances": {
+    "crop_type": 0.8833,
+    "area_ha": 0.0023,
+    "growing_days": 0.0019,
+    "gdd": 0.004,
+    "cumulative_rain": 0.0024,
+    "rain_anomaly": 0.0191,
+    "heat_stress_days": 0.0077,
+    "mean_soil_moisture": 0.002,
+    "peak_ndvi": 0.0587,
+    "irrigation_factor": 0.0188
+  },
+  "n_samples": 4000,
+  "test_size": 800
+}

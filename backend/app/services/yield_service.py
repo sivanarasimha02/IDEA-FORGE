@@ -17,6 +17,18 @@ from app.schemas.yield_model import YieldPredictionResponse, YieldFactor
 
 YIELD_MODEL_PATH = "ml-engine/saved_models/crop_yield_model.joblib"
 
+def _resolve_path(rel_path: str) -> Optional[str]:
+    candidates = [
+        rel_path,
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", rel_path)),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", rel_path)),
+        os.path.abspath(os.path.join(os.getcwd(), rel_path))
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    return None
+
 CROP_NAME_TO_INT = {
     "wheat": 0,
     "rice": 1,
@@ -46,8 +58,9 @@ class YieldPredictionService:
 
     def _load_model(self):
         try:
-            if os.path.exists(YIELD_MODEL_PATH):
-                self.model = joblib.load(YIELD_MODEL_PATH)
+            m_path = _resolve_path(YIELD_MODEL_PATH)
+            if m_path:
+                self.model = joblib.load(m_path)
         except Exception as e:
             print(f"Warning: Could not load yield model: {e}")
 

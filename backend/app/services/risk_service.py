@@ -19,6 +19,18 @@ DROUGHT_MODEL_PATH = "ml-engine/saved_models/drought_risk_model.joblib"
 EXCESS_MODEL_PATH = "ml-engine/saved_models/excess_rain_model.joblib"
 HEAT_MODEL_PATH = "ml-engine/saved_models/heat_stress_model.joblib"
 
+def _resolve_path(rel_path: str) -> Optional[str]:
+    candidates = [
+        rel_path,
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", rel_path)),
+        os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", rel_path)),
+        os.path.abspath(os.path.join(os.getcwd(), rel_path))
+    ]
+    for c in candidates:
+        if os.path.exists(c):
+            return c
+    return None
+
 class ClimateRiskService:
     def __init__(self):
         self.drought_model = None
@@ -28,12 +40,15 @@ class ClimateRiskService:
 
     def _load_models(self):
         try:
-            if os.path.exists(DROUGHT_MODEL_PATH):
-                self.drought_model = joblib.load(DROUGHT_MODEL_PATH)
-            if os.path.exists(EXCESS_MODEL_PATH):
-                self.excess_model = joblib.load(EXCESS_MODEL_PATH)
-            if os.path.exists(HEAT_MODEL_PATH):
-                self.heat_model = joblib.load(HEAT_MODEL_PATH)
+            d_path = _resolve_path(DROUGHT_MODEL_PATH)
+            if d_path:
+                self.drought_model = joblib.load(d_path)
+            e_path = _resolve_path(EXCESS_MODEL_PATH)
+            if e_path:
+                self.excess_model = joblib.load(e_path)
+            h_path = _resolve_path(HEAT_MODEL_PATH)
+            if h_path:
+                self.heat_model = joblib.load(h_path)
         except Exception as e:
             print(f"Warning: ML model loading encountered exception: {e}")
 
